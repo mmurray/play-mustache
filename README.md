@@ -1,14 +1,46 @@
 # play-mustache
 
-This module allows you to define logic-less template snippets that can be used server-side in your [Play](http://playframework.org) as well as client-side in your JavaScript. 
+This module allows you to define logic-less template snippets that can be used server-side in your [Play](http://playframework.org) views as well as client-side in your JavaScript. 
 
 The template snippets use [Mustache](http://mustache.github.com), which is a logic-less template language. For a complete reference of the language see the [manual](http://mustache.github.com/mustache.5.html).
 
-The play-mustache module allows you to define template snippets (either inline in your play view or in a seperate file) that can be printed out server-side in your view as well as client-side in your JavaScript.
+## Installation
 
-# Inline Template Snippets
+### Install the module
 
-You can define Mustache templates inline in your views using the `mustache.template` tag like this:
+Install the Mustache module from the modules repository:
+
+	play install mustache
+
+### Enable the module
+
+After installing the module, add the following to your `application.conf`:
+
+	# The Mustache module
+	module.mustache=${play.path}/modules/mustache
+
+## Usage
+
+### Scripts Tag
+
+The first step is to put the `mustache.scripts` tag somewhere in your document. This tag outputs the JavaScript implementation of Mustache and a mechanism to compile your templates using JavaScript. 
+
+	<html>
+	    <head>
+	        <title>#{get 'title' /}</title>
+	        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
+	        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+	        #{mustache.scripts /}
+	    </head>
+	    <body>
+	        #{doLayout /}
+	    </body>
+	</html> 
+
+### Inline Template Snippets
+
+You can define Mustache templates inline in your views using the `mustache.template` tag:
 
 	#{mustache.template 'task_item'}
 		<li class="task" id="task_{{id}}">
@@ -18,7 +50,7 @@ You can define Mustache templates inline in your views using the `mustache.templ
 		</li>
 	#{/mustache.template}
 	
-You can then use the template within your view using the `mustache.print` tag like this:
+You can then use the template within your view using the `mustache.print` tag:
 
 	<ul id="tasks">
 	#{list tasks, as: 'task'}
@@ -26,7 +58,7 @@ You can then use the template within your view using the `mustache.print` tag li
 	#{/list}
 	</ul>
 	
-And you can use the template within your JavaScript using the `PlayMustache.to_html` method like this:
+And you can use the template within your JavaScript using the `PlayMustache.to_html` method:
 
 	var data = {
 		name: 'Task 34',
@@ -36,7 +68,7 @@ And you can use the template within your JavaScript using the `PlayMustache.to_h
 	var html = PlayMustache.to_html("task_item", data);
 	$('#tasks').append($(html));
 
-# External Template Snippets
+### External Template Snippets
 
 If you don't want to specify your snippet inline, you can move it into an external file. By default the module will look in `app/views/mustaches` for template files, but you can configure this path by specifying `mustache.dir` in your `application.conf`.
 
