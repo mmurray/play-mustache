@@ -28,14 +28,14 @@ The first step is to put the **mustache.scripts** tag somewhere in your document
 bc. <html>
 	<head>
 		<title>#{get 'title' /}</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
-        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        #{mustache.scripts /}
-    </head>
-    <body>
-        #{doLayout /}
-    </body>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
+		<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+		#{mustache.scripts /}
+	</head>
+	<body>
+	    #{doLayout /}
+	</body>
 </html> 
 
 h3. Inline Template Snippets
