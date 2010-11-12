@@ -1,0 +1,16 @@
+%{
+	s = net.murz.play.mustache.MustachePlugin.session();
+}%
+${s.getJsLib().raw()}
+var PlayMustache = function() {
+	var _loaded = [];
+	#{list s.getRawTemplates(), as:'m'}
+	_loaded["${m.key.escapeJavaScript()}"] = "${m.value.escapeJavaScript().raw()}"; 
+	#{/list}
+	return({
+		to_html: function(key, context){
+			var tmpl = _loaded[key];
+			return Mustache.to_html(tmpl, context);
+		}	
+	});
+}();
