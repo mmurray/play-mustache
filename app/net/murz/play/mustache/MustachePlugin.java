@@ -7,14 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
-import org.mozilla.javascript.ErrorReporter;
-import org.mozilla.javascript.EvaluatorException;
 
 import com.sampullara.mustache.Mustache;
 import com.sampullara.mustache.MustacheCompiler;
 import com.sampullara.mustache.MustacheException;
-import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
-import com.yahoo.platform.yui.compressor.YUICompressor;
 
 import play.Logger;
 import play.Play;
