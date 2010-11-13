@@ -29,11 +29,11 @@ After your meta tag you should include **play-mustache.min.js**, which is in the
 
 bc. <html>
 	<head>
-		<title>#{get 'title' /}</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
-		<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-		#{mustache.meta /}
+	<title>#{get 'title' /}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
+	<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+	#{mustache.meta /}
 	    <script type="text/javascript" src="@{'/public/javascripts/play-mustache.min.js'}"></script>
 	</head>
 	<body>
@@ -64,7 +64,7 @@ bc. <ul id="tasks">
 And you can use the template within your JavaScript using the **PlayMustache.to_html** method:
 
 bc. var data = {
-	name: 'Task 34',
+	id: '34',
 	details: 'Finish the project',
 	priority: 'High'
 }

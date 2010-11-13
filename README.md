@@ -64,7 +64,7 @@ You can then use the template within your view using the `mustache.print` tag:
 And you can use the template within your JavaScript using the `PlayMustache.to_html` method:
 
 	var data = {
-		name: 'Task 34',
+		id: '34',
 		details: 'Finish the project',
 		priority: 'High'
 	}
