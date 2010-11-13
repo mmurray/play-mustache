@@ -21,9 +21,11 @@ module.mustache=${play.path}/modules/mustache
 
 h2. Usage
 
-h3. Scripts Tag
+h3. Meta and Script Tags
 
-The first step is to put the **mustache.scripts** tag somewhere in your document. This tag outputs the JavaScript implementation of Mustache and a mechanism to compile your templates using JavaScript. 
+The first step is to put the **mustache.meta** tag somewhere in your document. This tag outputs an HTML meta tag containing the snippets you have defined for the current request.
+
+After your meta tag you should include **play-mustache.min.js**, which is in the play-mustache **lib** directory. The file contains a JavaScript Mustache compiler and a mechanism to parse the templates out of the play-mustache meta tag. Copy this file to your public directory or to your CDN and include it in your document. 
 
 bc. <html>
 	<head>
@@ -31,7 +33,8 @@ bc. <html>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
 		<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-		#{mustache.scripts /}
+		#{mustache.meta /}
+	    <script type="text/javascript" src="@{'/public/javascripts/play-mustache.min.js'}"></script>
 	</head>
 	<body>
 	    #{doLayout /}

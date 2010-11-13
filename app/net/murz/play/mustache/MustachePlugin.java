@@ -32,12 +32,6 @@ public class MustachePlugin extends PlayPlugin {
         MustacheCompiler compiler = new MustacheCompiler();
         session_.set(new MustacheSession(compiler, root));        
         try{
-            //copy minified mustache.js to the application js dir if it's not there already
-            VirtualFile appFile = VirtualFile.open(Play.applicationPath+"/public/javascripts/mustache.min.js");
-            if(appFile.length() == 0){
-                VirtualFile moduleFile = VirtualFile.open(Play.frameworkPath+"/modules/mustache/lib/mustache.min.js");
-                FileUtils.copyFile(moduleFile.getRealFile(), appFile.getRealFile());
-            }
             this.loadFileSystemTemplates(root);
         }catch(Exception e){
             Logger.error("Error initializing Mustache module: "+e.getMessage());

@@ -28,22 +28,16 @@ public class MustacheSession {
     
     private MustacheCompiler compiler_ = null;
     private String root_ = null;
-    private String jsLib_ = null;
     private Map<String, Mustache> loaded_ = new HashMap<String, Mustache>();
     private Map<String, String> raw_ = new HashMap<String, String>();
     
     public MustacheSession(MustacheCompiler compiler, String directory){
         this.compiler_ = compiler;
         this.root_ = directory;
-        this.jsLib_ = VirtualFile.open(Play.frameworkPath+"/modules/mustache/lib/mustache.min.js").contentAsString();
     }
     
     public Map<String, String> getRawTemplates(){
         return raw_;
-    }
-    
-    public String getJsLib(){
-        return jsLib_;
     }
     
     public void addFromString(String key, String tmpl) throws MustacheException {

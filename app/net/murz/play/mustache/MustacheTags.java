@@ -4,8 +4,10 @@ import groovy.lang.Closure;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.Map;
 
+import com.google.gson.Gson;
 import com.sampullara.mustache.*;
 
 import play.Logger;
@@ -34,12 +36,17 @@ public class MustacheTags extends FastTags {
         out.print(session.toHtml(key, context));
     }
     
-    public static void _scripts(Map<?, ?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine) throws MustacheException, IOException {
-//        StringBuilder result = new StringBuilder();
-        String libSrc = Router.reverse(VirtualFile.open(Play.applicationPath+"/public/javascripts/mustache.min.js"));
-        String moduleSrc = Router.reverse("mustache.Mustache.moduleJavascript").url;
-        out.print("<script type=\"text/javascript\" src=\""+libSrc+"\"></script>");
-        out.print("<script type=\"text/javascript\" src=\""+moduleSrc+"\"></script>");
+    public static void _meta(Map<?, ?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine) throws MustacheException, IOException {
+        StringBuilder templates = new StringBuilder("{\"templates\":{");
+        Iterator it = MustachePlugin.session().getRawTemplates().entrySet().iterator();
+        
+        while(it.hasNext()){
+            Map.Entry pairs = (Map.Entry)it.next();
+            templates.append("\""+JavaExtensions.escapeJavaScript(pairs.getKey().toString())+"\":\""+JavaExtensions.escapeJavaScript(pairs.getValue().toString())+"\"");
+            if(it.hasNext()) templates.append(",");
+        }
+        templates.append("}}");
+        out.println("<meta id=\"play-mustache-templates\" name=\"play-mustache-templates\" content=\""+JavaExtensions.escapeHtml(templates.toString())+"\"></script>");
     }
     
 }
