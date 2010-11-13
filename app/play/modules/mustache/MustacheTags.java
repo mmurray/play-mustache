@@ -7,8 +7,8 @@ import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
 
-import net.murz.play.mustache.MustachePlugin;
-import net.murz.play.mustache.MustacheSession;
+import play.modules.mustache.MustachePlugin;
+import play.modules.mustache.MustacheSession;
 
 import com.google.gson.Gson;
 import com.sampullara.mustache.*;
