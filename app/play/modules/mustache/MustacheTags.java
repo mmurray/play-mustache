@@ -1,4 +1,4 @@
-package net.murz.play.mustache;
+package play.modules.mustache;
 
 import groovy.lang.Closure;
 
@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
+
+import net.murz.play.mustache.MustachePlugin;
+import net.murz.play.mustache.MustacheSession;
 
 import com.google.gson.Gson;
 import com.sampullara.mustache.*;

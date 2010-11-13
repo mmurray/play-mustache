@@ -1,4 +1,4 @@
-package net.murz.play.mustache;
+package play.modules.mustache;
 
 
 import java.io.File;
