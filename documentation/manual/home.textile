@@ -34,7 +34,7 @@ bc. <html>
 		<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
 		<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
 		#{mustache.meta /}
-	    <script type="text/javascript" src="@{'/public/javascripts/play-mustache.min.js'}"></script>
+	    	<script type="text/javascript" src="@{'/public/javascripts/play-mustache.min.js'}"></script>
 	</head>
 	<body>
 	    #{doLayout /}
