@@ -29,7 +29,7 @@ public class MustachePlugin extends PlayPlugin {
     @Override
     public void onConfigurationRead(){
         String root = Play.configuration.containsKey("mustache.dir") ? Play.configuration.getProperty("mustache.dir") : Play.applicationPath+"/app/views/mustaches";
-        MustacheCompiler compiler = new MustacheCompiler();
+        MustacheCompiler compiler = new MustacheCompiler(new File(root));
         session_.set(new MustacheSession(compiler, root));        
         try{
             this.loadFileSystemTemplates(root);
