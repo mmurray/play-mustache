@@ -26,13 +26,17 @@ import play.vfs.VirtualFile;
 
 public class MustacheSession {
     
-    private MustacheCompiler compiler_ = null;
+    private ThreadLocal<MustacheCompiler> compiler_ = new ThreadLocal<MustacheCompiler>();
     private String root_ = null;
     private Map<String, Mustache> loaded_ = new HashMap<String, Mustache>();
     private Map<String, String> raw_ = new HashMap<String, String>();
     
-    public MustacheSession(MustacheCompiler compiler, String directory){
-        this.compiler_ = compiler;
+    public MustacheCompiler compiler() {
+        if(compiler_.get() == null) compiler_.set(new MustacheCompiler(new File(root_)));
+        return compiler_.get();
+    }
+
+    public MustacheSession(String directory){
         this.root_ = directory;
     }
     
@@ -41,7 +45,7 @@ public class MustacheSession {
     }
     
     public void addFromString(String key, String tmpl) throws MustacheException {
-        loaded_.put(key, compiler_.parse(tmpl));
+        loaded_.put(key, compiler().parse(tmpl));
         raw_.put(key, tmpl);
     }
     
@@ -75,5 +79,24 @@ public class MustacheSession {
         }
     }
 
+    public void loadFileSystemTemplates(String root)  throws MustacheException, IOException {
+        File dir = VirtualFile.open(root).getRealFile();
+        this.addFilesRecursively(dir, root);
+    }
+
+    private void addFilesRecursively(File file, String root) throws MustacheException, IOException {
+        File[] children = file.listFiles();
+        if(children != null){
+            for(File child : children){
+                if(child.isDirectory()){
+                    addFilesRecursively(child, root);
+                }else{
+                    String path = child.getAbsolutePath();
+                    String key = path.replace(root+"/", "");
+                    this.addFromFile(key, path);
+                }
+            }
+        }
+    }
     
 }
