@@ -39,6 +39,19 @@ public class MustacheTags extends FastTags {
         out.print(session.toHtml(key, context));
     }
     
+    public static void _script(Map<?, ?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine) throws MustacheException, IOException {
+        StringBuilder templates = new StringBuilder("window.__MUSTACHE_TEMPLATES={");
+        Iterator it = MustachePlugin.session().getRawTemplates().entrySet().iterator();
+        
+        while(it.hasNext()){
+            Map.Entry pairs = (Map.Entry)it.next();
+            templates.append("\""+JavaExtensions.escapeJavaScript(pairs.getKey().toString())+"\":\""+JavaExtensions.escapeJavaScript(pairs.getValue().toString())+"\"");
+            if(it.hasNext()) templates.append(",");
+        }
+        templates.append("}");
+        out.println("<script type=\"text/javascript\">"+templates.toString()+"</script>");
+    }
+    
     public static void _meta(Map<?, ?> args, Closure body, PrintWriter out, ExecutableTemplate template, int fromLine) throws MustacheException, IOException {
         StringBuilder templates = new StringBuilder("{\"templates\":{");
         Iterator it = MustachePlugin.session().getRawTemplates().entrySet().iterator();
@@ -49,7 +62,7 @@ public class MustacheTags extends FastTags {
             if(it.hasNext()) templates.append(",");
         }
         templates.append("}}");
-        out.println("<meta id=\"play-mustache-templates\" name=\"play-mustache-templates\" content=\""+JavaExtensions.escapeHtml(templates.toString())+"\"></script>");
+        out.println("<meta id=\"play-mustache-templates\" name=\"play-mustache-templates\" content=\""+JavaExtensions.escapeHtml(templates.toString())+"\">");
     }
     
 }
